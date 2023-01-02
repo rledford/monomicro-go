@@ -11,6 +11,8 @@ import (
 
 	pb "github.com/rledford/monomicro/randint/proto/v1"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 var (
@@ -22,9 +24,12 @@ type server struct {
 }
 
 func (s *server) GetRandint(ctx context.Context, in *pb.GetRandintRequest) (*pb.GetRandintResponse, error) {
+	if (in.Min < 0 || in.Min >= in.Max) {
+		return nil, status.Error(codes.InvalidArgument, "invalid min or max")
+	}
 	log.Printf("Received: %d -> %d", in.Min, in.Max)
 	rand.Seed(time.Now().UnixNano())
-	value := rand.Int31n(in.Max - in.Min) + in.Min;
+	value := rand.Int31n(in.Max - in.Min + 1) + in.Min;
 	return &pb.GetRandintResponse{Value: value}, nil
 }
 
