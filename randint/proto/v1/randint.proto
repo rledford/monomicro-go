@@ -1,0 +1,16 @@
+syntax = "proto3";
+package proto.v1;
+option go_package = "github.com/rledford/monomicro/randint";
+
+message GetRandintRequest {
+  int32 min = 1;
+  int32 max = 2;
+};
+
+message GetRandintResponse {
+  int32 value = 1;
+};
+
+service RandintService {
+  rpc GetRandint (GetRandintRequest) returns (GetRandintResponse);
+};
