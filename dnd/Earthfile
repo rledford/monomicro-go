@@ -2,7 +2,7 @@ VERSION 0.6
 
 proto:
   FROM ..+proto-deps
-  WORKDIR /randint
+  WORKDIR /dnd
   COPY go.mod go.sum ./
   COPY api ./api
   COPY buf.* .

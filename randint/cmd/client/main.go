@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	pb "github.com/rledford/monomicro/randint/proto/v1"
+	pb "github.com/rledford/monomicro/randint/api/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )

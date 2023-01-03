@@ -9,9 +9,10 @@ import (
 	"net"
 	"time"
 
-	pb "github.com/rledford/monomicro/randint/proto/v1"
+	pb "github.com/rledford/monomicro/randint/api/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/reflection"
 	status "google.golang.org/grpc/status"
 )
 
@@ -40,6 +41,9 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
+	// register reflection to allow REST-style calls to server
+	// this also allows introspection which may not be desired in prod
+	reflection.Register(s)
 	pb.RegisterRandintServiceServer(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {

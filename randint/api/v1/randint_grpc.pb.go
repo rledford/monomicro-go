@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             (unknown)
-// source: proto/v1/randint.proto
+// source: api/v1/randint.proto
 
-package protov1
+package apiv1
 
 import (
 	context "context"
@@ -35,7 +35,7 @@ func NewRandintServiceClient(cc grpc.ClientConnInterface) RandintServiceClient {
 
 func (c *randintServiceClient) GetRandint(ctx context.Context, in *GetRandintRequest, opts ...grpc.CallOption) (*GetRandintResponse, error) {
 	out := new(GetRandintResponse)
-	err := c.cc.Invoke(ctx, "/proto.v1.RandintService/GetRandint", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.v1.RandintService/GetRandint", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func _RandintService_GetRandint_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/proto.v1.RandintService/GetRandint",
+		FullMethod: "/api.v1.RandintService/GetRandint",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RandintServiceServer).GetRandint(ctx, req.(*GetRandintRequest))
@@ -90,7 +90,7 @@ func _RandintService_GetRandint_Handler(srv interface{}, ctx context.Context, de
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var RandintService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.v1.RandintService",
+	ServiceName: "api.v1.RandintService",
 	HandlerType: (*RandintServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -99,5 +99,5 @@ var RandintService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/v1/randint.proto",
+	Metadata: "api/v1/randint.proto",
 }

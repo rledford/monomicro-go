@@ -1,0 +1,16 @@
+syntax="proto3";
+package api.v1;
+option go_package = "github.com/rledford/monomirco/dnd";
+
+message GetRollRequest {
+  int32 d = 1;
+  int32 r = 2;
+};
+
+message GetRollResponse {
+  repeated int32 roll = 1;
+};
+
+service DnDService {
+  rpc GetRoll(GetRollRequest) returns (GetRollResponse);
+};
