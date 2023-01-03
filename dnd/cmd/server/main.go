@@ -21,7 +21,13 @@ type server struct {
 }
 
 func (s *server) GetRoll(ctx context.Context, in *pb.GetRollRequest) (*pb.GetRollResponse, error) {
-	return &pb.GetRollResponse{Roll: []int32{0}}, nil
+	result := make([]int32, in.R)
+
+	for i := int32(0); i < in.R; i++ {
+		result[i] = i
+	}
+
+	return &pb.GetRollResponse{Roll: result}, nil
 }
 
 func main() {
