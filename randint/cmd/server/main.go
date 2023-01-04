@@ -9,7 +9,7 @@ import (
 	"net"
 	"time"
 
-	pb "github.com/rledford/monomicro/randint/api/v1"
+	pb "github.com/rledford/monomicro-go/randint/api/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/reflection"

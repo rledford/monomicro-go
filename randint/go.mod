@@ -1,4 +1,4 @@
-module github.com/rledford/monomicro/randint
+module github.com/rledford/monomicro-go/randint
 
 go 1.19
 

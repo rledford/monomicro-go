@@ -2,7 +2,7 @@ version: v1
 managed:
   enabled: true
   go_package_prefix:
-    default: github.com/rledford/monomicro/dnd
+    default: github.com/rledford/monomicro-go/dnd
     except:
       - buf.build/googleapis/googleapis
 plugins:

@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	pb "github.com/rledford/monomicro/randint/api/v1"
+	pb "github.com/rledford/monomicro-go/randint/api/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -41,6 +41,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("could not get value: %v", err)
 	}
-	
+
 	log.Printf("Value: %d", r.GetValue())
 }

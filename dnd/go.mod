@@ -1,4 +1,4 @@
-module github.com/rledford/monomicro/dnd
+module github.com/rledford/monomicro-go/dnd
 
 go 1.19
 
