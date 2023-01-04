@@ -13,7 +13,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/reflection"
-	status "google.golang.org/grpc/status"
+	"google.golang.org/grpc/status"
 )
 
 var (
@@ -28,24 +28,29 @@ func (s *server) GetRandint(ctx context.Context, in *pb.GetRandintRequest) (*pb.
 	if (in.Min < 0 || in.Min >= in.Max) {
 		return nil, status.Error(codes.InvalidArgument, "invalid min or max")
 	}
+
 	log.Printf("Received: %d -> %d", in.Min, in.Max)
+
 	rand.Seed(time.Now().UnixNano())
 	value := rand.Int31n(in.Max - in.Min + 1) + in.Min;
+
 	return &pb.GetRandintResponse{Value: value}, nil
 }
 
 func main() {
 	flag.Parse()
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
+
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
 	s := grpc.NewServer()
-	// register reflection to allow REST-style calls to server
-	// this also allows introspection which may not be desired in prod
 	reflection.Register(s)
 	pb.RegisterRandintServiceServer(s, &server{})
+
 	log.Printf("server listening at %v", lis.Addr())
+	
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

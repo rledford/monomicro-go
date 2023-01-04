@@ -24,20 +24,23 @@ var (
 
 func main() {
 	flag.Parse()
-	// Set up a connection to the server.
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
-	defer conn.Close()
-	c := pb.NewRandintServiceClient(conn)
 
-	// Contact the server and print out its response.
+	defer conn.Close()
+
+	c := pb.NewRandintServiceClient(conn)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
+
 	r, err := c.GetRandint(ctx, &pb.GetRandintRequest{Min: int32(*min), Max: int32(*max)})
+
 	if err != nil {
 		log.Fatalf("could not get value: %v", err)
 	}
+	
 	log.Printf("Value: %d", r.GetValue())
 }
