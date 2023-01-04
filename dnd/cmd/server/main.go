@@ -65,7 +65,7 @@ func (s *server) GetRoll(ctx context.Context, in *pb.GetRollRequest) (*pb.GetRol
 		r,err := riclient.GetRandint(rictx, &randint.GetRandintRequest{Min: 1, Max: in.D})
 
 		if err != nil {
-			return nil, status.Error(codes.InvalidArgument, "Fialed to get roll value from randint service")
+			return nil, status.Error(codes.InvalidArgument, "Failed to get roll value from randint service")
 		}
 
 		result[i] = r.Value
