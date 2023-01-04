@@ -21,15 +21,36 @@ var (
 	port = flag.Int("port", 50052, "The server port")
 )
 
+var dvalid = [6]int32{4,6,8,10,12,20}
+
+func isValidD(value int32) bool {
+	for _, d := range(dvalid) {
+		if d == value {
+			return true
+		}
+	}
+
+	return false
+}
+
+func isValidR(value int32) bool {
+	return value >= 1
+}
+
 type server struct {
 	pb.UnsafeDnDServiceServer
 }
 
 func (s *server) GetRoll(ctx context.Context, in *pb.GetRollRequest) (*pb.GetRollResponse, error) {
+	if !isValidD(in.D) {
+		return nil, status.Error(codes.InvalidArgument, "Invalid d")
+	} else if !isValidR(in.R) {
+		return nil, status.Error(codes.InvalidArgument, "Invalid r")
+	}
 	riconn, err := grpc.Dial(":50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	if err != nil {
-		return nil, status.Error(codes.InvalidArgument, "Fialed to connect to randint service")
+		return nil, status.Error(codes.InvalidArgument, "Failed to connect to randint service")
 	}
 
 	defer riconn.Close()
